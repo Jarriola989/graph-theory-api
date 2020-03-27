@@ -1,7 +1,6 @@
 import { Graph, node_list } from "./graph.js";
 
 export function createGraph(nodeCount, isDirected) {
-  console.log(`is the graph directed? ${isDirected}`);
   const maxEdges = !isDirected
     ? (nodeCount * (nodeCount - 1)) / 2
     : 2 * ((nodeCount * (nodeCount - 1)) / 2);
@@ -11,10 +10,8 @@ export function createGraph(nodeCount, isDirected) {
     graph.nodes.push(node_list[i]);
   }
   for (let i = 0; i < edgeCount; i++) {
-    console.log(`Node ${i + 1}/${edgeCount}`);
     let u = graph.nodes[Math.floor(Math.random() * nodeCount)];
     let v = graph.nodes[Math.floor(Math.random() * nodeCount)];
-    console.log(`first try: [${u},${v}]`);
     // Undirected graphs cannot have reverse edges and cannot point to themselves.
     while (
       !isDirected &&
