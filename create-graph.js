@@ -4,8 +4,10 @@ export function createGraph(nodeCount, isDirected) {
   const maxEdges = !isDirected
     ? (nodeCount * (nodeCount - 1)) / 2
     : 2 * ((nodeCount * (nodeCount - 1)) / 2);
-  const edgeCount = Math.floor(Math.random() * maxEdges + 1);
+  const edgeCount =
+    maxEdges === 0 ? 0 : Math.floor(Math.random() * maxEdges + 1);
   const graph = new Graph(nodeCount, edgeCount, isDirected);
+
   for (let i = 0; i < nodeCount; i++) {
     graph.nodes.push(node_list[i]);
   }
@@ -22,7 +24,10 @@ export function createGraph(nodeCount, isDirected) {
       u = graph.nodes[Math.floor(Math.random() * nodeCount)];
       v = graph.nodes[Math.floor(Math.random() * nodeCount)];
     }
-    while (isDirected && JSON.stringify(graph.edges).includes(JSON.stringify([u, v]))) {
+    while (
+      isDirected &&
+      JSON.stringify(graph.edges).includes(JSON.stringify([u, v]))
+    ) {
       u = graph.nodes[Math.floor(Math.random() * nodeCount)];
       v = graph.nodes[Math.floor(Math.random() * nodeCount)];
     }
