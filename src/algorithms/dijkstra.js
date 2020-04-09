@@ -34,12 +34,14 @@ export function dijkstra(graph) {
     console.log(
       `Closest distance is now ${closestNode} at index ${closestNodeIndex} with distance ${closestDistance}.`
     );
-    
+
     graph.edges.map(([u, v]) => {
       //TODO: Check if edges are not going backwards direction
       if (nodes[closestNodeIndex] === u || nodes[closestNodeIndex] === v) {
         const edgeIndex =
-          JSON.stringify(graph.edges).indexOf(JSON.stringify([u, v])) - 1; //DOUBLE CHECK THIS. might not be returning the right index
+          (JSON.stringify(graph.edges).indexOf(JSON.stringify([u, v])) - 1) /
+          10; //DOUBLE CHECK THIS. might not be returning the right index
+        console.log(edgeIndex);
         const edgeWeight = edgeWeights[edgeIndex];
         console.log(
           `Found an edge at ${edgeIndex} with weight ${edgeWeight[1]}`
@@ -50,6 +52,9 @@ export function dijkstra(graph) {
         );
         // updating the total distance of each connected node
         nodeDistances[nodes.indexOf(nextNode)] = edgeWeight[1]; // TODO: this will need to account for resetting or adding weight to the node distance
+        console.log(nodeDistances[nodes.indexOf(nextNode)]);
+        console.log(edgeWeight[1]);
+        console.log(nodeDistances);
       }
     });
     unvisited.splice(unvisited.indexOf(closestNode), 1);
