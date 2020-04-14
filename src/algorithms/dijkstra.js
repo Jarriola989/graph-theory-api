@@ -23,7 +23,7 @@ export function dijkstra(graph) {
   while (unvisited.length !== 0) {
     let closestNode;
     let closestDistance = Number.POSITIVE_INFINITY;
-    let closestNodeIndex; // this is the node we currently on and exploring its neighbors
+    let closestNodeIndex; // this is the node we are currently on and exploring its neighbors
     unvisited.map((node) => {
       if (nodeDistances[nodes.indexOf(node)] < closestDistance) {
         closestDistance = nodeDistances[nodes.indexOf(node)];
@@ -37,7 +37,10 @@ export function dijkstra(graph) {
 
     graph.edges.map(([u, v]) => {
       //TODO: Check if edges are not going backwards direction
-      if (nodes[closestNodeIndex] === u || nodes[closestNodeIndex] === v) {
+      if (
+        (nodes[closestNodeIndex] === u && unvisited.includes(v)) ||
+        (nodes[closestNodeIndex] === v && unvisited.includes(u))
+      ) {
         const edgeIndex =
           (JSON.stringify(graph.edges).indexOf(JSON.stringify([u, v])) - 1) /
           10; //DOUBLE CHECK THIS. might not be returning the right index
@@ -60,5 +63,8 @@ export function dijkstra(graph) {
     unvisited.splice(unvisited.indexOf(closestNode), 1);
     visited.push(closestNode);
   }
-  return visited;
+  return {
+    shortestPath: visited,
+    edgeWeights: edgeWeights
+  };
 }

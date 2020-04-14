@@ -12,11 +12,11 @@ export function routes(app) {
   });
 
   app.post("/dijkstra", function (req, res) {
-    const shortestPath = dijkstra(req.body.graph);
+    const dijkstraResult = dijkstra(req.body.graph);
     return res.status(200).send({
       success: true,
       message: "Dijkstra calculated successfully",
-      shortestPath: shortestPath,
+      dijkstra: dijkstraResult,
     });
   });
 }
