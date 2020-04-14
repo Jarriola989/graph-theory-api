@@ -2,6 +2,12 @@ import { createGraph } from "./src/create-graph.js";
 import { dijkstra } from "./src/algorithms/dijkstra.js";
 
 export function routes(app) {
+  app.get("/hello", function (req, res) {
+    return res.status(200).send({
+      message: "hello!",
+    });
+  });
+
   app.post("/create-graph", function (req, res) {
     const graph = createGraph(req.body.nodeCount, req.body.isDirected);
     return res.status(200).send({
